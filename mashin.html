@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOIR Showroom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800;900&family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+/* =====================================================================
+   1) رنگ‌ها و تنظیمات ظاهری — فقط همین بخش را عوض کنید تا کل سایت تغییر کند
+   1) COLORS & THEME — edit only this block to restyle the whole site
+   ===================================================================== */
+:root {
+  --bg:        #000000;   /* پس‌زمینه اصلی / main background */
+  --bg-2:      #07070c;   /* پس‌زمینه کارت‌ها / card background */
+  --navy:      #0b1633;   /* سرمه‌ای / navy */
+  --navy-2:    #14265a;   /* سرمه‌ای روشن‌تر / lighter navy */
+  --crimson:   #8b0f2a;   /* زرشکی / crimson */
+  --crimson-2: #b8153d;   /* زرشکی روشن‌تر / lighter crimson */
+  --text:      #ecebf0;   /* رنگ متن / text */
+  --muted:     #9aa0b4;   /* متن کم‌رنگ / muted text */
+  --line:      rgba(255,255,255,.08);
+
+  /* تصویر پس‌زمینه صفحه اول (اختیاری) — مثال: url('images/hero.jpg')
+     Optional hero background image — e.g. url('images/hero.jpg') */
+  --hero-image: none;
+
+  --font-en: 'Montserrat', system-ui, sans-serif;
+  --font-fa: 'Vazirmatn', Tahoma, sans-serif;
+}
+
+/* ===== پایه / base ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-fa);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+html[lang="en"] body { font-family: var(--font-en); }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+.container { width: min(1200px, 92%); margin-inline: auto; }
+
+/* ===== هدر / header ===== */
+header {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  background: linear-gradient(180deg, rgba(0,0,0,.92), rgba(0,0,0,.55));
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.logo { font-family: var(--font-en); font-weight: 900; letter-spacing: .3em; font-size: 1.15rem; }
+.logo span { color: var(--crimson-2); }
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a { font-size: .92rem; color: var(--muted); transition: color .25s; }
+.nav-links a:hover { color: #fff; }
+.lang-btn {
+  border: 1px solid var(--crimson); background: transparent; color: #fff;
+  padding: 6px 16px; border-radius: 999px; font-size: .85rem; transition: .25s;
+}
+.lang-btn:hover { background: var(--crimson); }
+
+/* ===== صفحه اول / hero ===== */
+.hero {
+  min-height: 100vh; display: grid; place-items: center; text-align: center;
+  padding: 120px 0 80px; position: relative;
+  background:
+    var(--hero-image) center/cover no-repeat,
+    radial-gradient(ellipse 70% 55% at 20% 20%, var(--navy) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 85% 80%, var(--crimson) 0%, transparent 70%),
+    var(--bg);
+}
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, var(--bg)); pointer-events: none; }
+.hero .container { position: relative; z-index: 1; }
+.eyebrow { font-size: .85rem; letter-spacing: .35em; color: var(--crimson-2); margin-bottom: 22px; text-transform: uppercase; }
+html[lang="fa"] .eyebrow { letter-spacing: .1em; }
+.hero h1 {
+  font-weight: 900;           /* تیتر بولد / bold headline */
+  font-size: clamp(2.2rem, 7vw, 5.4rem);
+  line-height: 1.15;
+  max-width: 14ch; margin-inline: auto;
+}
+html[lang="en"] .hero h1 { font-family: var(--font-en); letter-spacing: .02em; text-transform: uppercase; }
+.hero p { margin: 26px auto 38px; max-width: 58ch; color: var(--muted); font-size: 1.05rem; }
+.btn {
+  display: inline-block; padding: 14px 38px; border-radius: 4px; font-weight: 700;
+  background: linear-gradient(135deg, var(--crimson), var(--navy-2));
+  border: 1px solid rgba(255,255,255,.12); color: #fff; transition: .3s;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(139,15,42,.35); }
+
+/* ===== بخش‌ها / sections ===== */
+section { padding: 90px 0; }
+.sec-title { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; margin-bottom: 10px; }
+.sec-title::after { content: ""; display: block; width: 64px; height: 3px; margin-top: 14px; background: linear-gradient(90deg, var(--crimson-2), var(--navy-2)); }
+.sec-sub { color: var(--muted); margin-bottom: 34px; }
+
+/* ===== فیلتر برند / brand filter ===== */
+.filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
+.chip {
+  background: transparent; color: var(--muted); border: 1px solid var(--line);
+  padding: 7px 18px; border-radius: 999px; font-size: .85rem; transition: .25s;
+}
+.chip:hover { color: #fff; border-color: var(--navy-2); }
+.chip.active { background: linear-gradient(135deg, var(--navy-2), var(--crimson)); color: #fff; border-color: transparent; }
+
+/* ===== کارت ماشین / car card ===== */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 26px; }
+.card {
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+  cursor: pointer; transition: .35s; position: relative;
+}
+.card:hover { transform: translateY(-6px); border-color: var(--crimson); box-shadow: 0 18px 50px rgba(20,38,90,.35); }
+.card-img { aspect-ratio: 16/10; overflow: hidden; background: #050508; position: relative; }
+.card-img img { width: 100%; height: 100%; object-fit: cover; transition: opacity .5s, transform .8s; }
+.card-img .interior { position: absolute; inset: 0; opacity: 0; }
+.card:hover .card-img .interior { opacity: 1; }
+.card:hover .card-img img { transform: scale(1.05); }
+.badge {
+  position: absolute; top: 12px; inset-inline-start: 12px; z-index: 2;
+  font-size: .72rem; padding: 3px 12px; border-radius: 999px;
+  background: rgba(0,0,0,.65); border: 1px solid var(--crimson); backdrop-filter: blur(6px);
+}
+.card-body { padding: 20px 22px 24px; }
+.card-body h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
+.card-body .tag { color: var(--muted); font-size: .88rem; margin-bottom: 16px; }
+.mini { display: flex; gap: 8px; }
+.mini div { flex: 1; text-align: center; padding: 9px 4px; background: rgba(20,38,90,.25); border: 1px solid var(--line); border-radius: 6px; }
+.mini b { display: block; font-size: 1rem; color: #fff; font-family: var(--font-en); }
+.mini small { color: var(--muted); font-size: .7rem; }
+.more { margin-top: 16px; font-size: .85rem; color: var(--crimson-2); }
+
+/* ===== پنجره جزئیات / modal ===== */
+.modal { position: fixed; inset: 0; z-index: 100; display: none; background: rgba(0,0,0,.88); backdrop-filter: blur(8px); overflow-y: auto; padding: 40px 0; }
+.modal.open { display: block; }
+.modal-box { width: min(1100px, 94%); margin: auto; background: #04040a; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; position: relative; }
+.close { position: absolute; top: 14px; inset-inline-end: 14px; z-index: 5; width: 40px; height: 40px; border-radius: 50%; background: rgba(0,0,0,.7); color: #fff; border: 1px solid var(--crimson); font-size: 1.2rem; }
+.modal-grid { display: grid; grid-template-columns: 1.25fr 1fr; }
+.gallery { background: #000; }
+.gallery .main { aspect-ratio: 4/3; overflow: hidden; }
+.gallery .main img { width: 100%; height: 100%; object-fit: cover; }
+.tabs { display: flex; }
+.tab { flex: 1; padding: 13px; border: 0; background: var(--navy); color: var(--muted); font-weight: 600; transition: .25s; }
+.tab.active { background: linear-gradient(135deg, var(--crimson), var(--navy-2)); color: #fff; }
+.info { padding: 38px 34px; }
+.info h2 { font-size: 1.7rem; font-weight: 800; }
+.info .tag { color: var(--crimson-2); margin-bottom: 16px; }
+.info p { color: var(--muted); margin-bottom: 24px; }
+.specs { width: 100%; border-collapse: collapse; }
+.specs td { padding: 11px 0; border-bottom: 1px solid var(--line); font-size: .93rem; }
+.specs td:first-child { color: var(--muted); width: 42%; }
+.specs td:last-child { font-weight: 600; }
+.note { margin-top: 20px; font-size: .78rem; color: var(--muted); }
+
+/* ===== درباره / about ===== */
+.about { background: linear-gradient(180deg, var(--bg), var(--navy) 140%); border-top: 1px solid var(--line); }
+.about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px; margin-top: 30px; }
+.about-grid div { padding: 26px; border: 1px solid var(--line); border-radius: 10px; background: rgba(0,0,0,.45); }
+.about-grid h4 { margin-bottom: 8px; color: #fff; }
+.about-grid p { color: var(--muted); font-size: .92rem; }
+
+footer { padding: 34px 0; text-align: center; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--line); }
+
+@media (max-width: 860px) {
+  .modal-grid { grid-template-columns: 1fr; }
+  .nav-links a.hide-m { display: none; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#top" class="logo">NOIR<span>.</span></a>
+    <nav class="nav-links">
+      <a href="#collection" class="hide-m" data-i18n="nav_collection"></a>
+      <a href="#about" class="hide-m" data-i18n="nav_about"></a>
+      <button class="lang-btn" id="langBtn" aria-label="Change language"></button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- ===== صفحه اول / HERO ===== -->
+  <div class="hero">
+    <div class="container">
+      <div class="eyebrow" data-i18n="eyebrow"></div>
+      <h1 data-i18n="hero_title"></h1>
+      <p data-i18n="hero_text"></p>
+      <a href="#collection" class="btn" data-i18n="hero_btn"></a>
+    </div>
+  </div>
+
+  <!-- ===== کلکسیون / COLLECTION ===== -->
+  <section id="collection">
+    <div class="container">
+      <h2 class="sec-title" data-i18n="col_title"></h2>
+      <p class="sec-sub" data-i18n="col_sub"></p>
+      <div class="filters" id="filters"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <!-- ===== درباره / ABOUT ===== -->
+  <section class="about" id="about">
+    <div class="container">
+      <h2 class="sec-title" data-i18n="about_title"></h2>
+      <p class="sec-sub" data-i18n="about_sub"></p>
+      <div class="about-grid">
+        <div><h4 data-i18n="f1_t"></h4><p data-i18n="f1_p"></p></div>
+        <div><h4 data-i18n="f2_t"></h4><p data-i18n="f2_p"></p></div>
+        <div><h4 data-i18n="f3_t"></h4><p data-i18n="f3_p"></p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="container" data-i18n="footer"></div></footer>
+
+<!-- ===== پنجره جزئیات / DETAIL MODAL ===== -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="close" id="closeBtn" aria-label="Close">✕</button>
+    <div class="modal-grid">
+      <div class="gallery">
+        <div class="main"><img id="mainImg" alt=""></div>
+        <div class="tabs">
+          <button class="tab active" id="tabExt" data-i18n="exterior"></button>
+          <button class="tab" id="tabInt" data-i18n="interior"></button>
+        </div>
+      </div>
+      <div class="info">
+        <h2 id="mName"></h2>
+        <div class="tag" id="mTag"></div>
+        <p id="mDesc"></p>
+        <table class="specs" id="mSpecs"></table>
+        <div class="note" data-i18n="spec_note"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   2) متن‌های سایت (فارسی / انگلیسی) — هر متنی را اینجا ویرایش کنید
+   2) SITE TEXTS (Persian / English) — edit any text here
+   ===================================================================== */
+const I18N = {
+  fa: {
+    nav_collection: 'کلکسیون', nav_about: 'درباره ما',
+    eyebrow: 'نمایشگاه خودروهای لوکس',
+    hero_title: 'مهندسی شده برای ماندگار شدن در ذهن',
+    hero_text: 'گزیده‌ای از برترین خودروهای لوکس و اسپرت جهان؛ با مشخصات فنی کامل و تصاویر نمای بیرونی و فضای داخلی.',
+    hero_btn: 'مشاهده کلکسیون',
+    col_title: 'کلکسیون خودروها',
+    col_sub: 'روی هر خودرو کلیک کنید تا تصاویر و مشخصات کامل را ببینید.',
+    all: 'همه',
+    details: 'مشاهده جزئیات',
+    exterior: 'نمای بیرونی', interior: 'فضای داخلی',
+    s_engine: 'موتور', s_power: 'قدرت', s_torque: 'گشتاور',
+    s_accel: 'شتاب ۰ تا ۱۰۰', s_top: 'سرعت نهایی', s_drive: 'سیستم محرک', s_gear: 'گیربکس',
+    hp: 'اسب بخار', nm: 'نیوتن‌متر', sec: 'ثانیه', kmh: 'کیلومتر بر ساعت',
+    short_power: 'قدرت', short_accel: '۰–۱۰۰', short_top: 'سرعت',
+    spec_note: 'اعداد مشخصات تقریبی و مربوط به نسخه‌ی معرفی‌شده است و ممکن است در بازارها و سال‌های مختلف متفاوت باشد.',
+    about_title: 'درباره‌ی نمایشگاه',
+    about_sub: 'این وب‌سایت صرفاً جنبه‌ی نمایشی دارد و برای معرفی خودروها طراحی شده است.',
+    f1_t: 'مهندسی بی‌نظیر', f1_p: 'هر خودرو حاصل دهه‌ها تجربه در طراحی، آیرودینامیک و عملکرد است.',
+    f2_t: 'لوکس و اسپرت', f2_p: 'از لیموزین‌های فوق‌لوکس تا هایپرکارهای رکوردشکن در یک مجموعه.',
+    f3_t: 'مجموعه‌ی در حال رشد', f3_p: 'خودروهای جدید به‌صورت مداوم به کلکسیون اضافه می‌شوند.',
+    footer: '© 2026 NOIR Showroom — این سایت نمایشی است.'
+  },
+  en: {
+    nav_collection: 'Collection', nav_about: 'About',
+    eyebrow: 'Luxury Car Showroom',
+    hero_title: 'ENGINEERED TO BE REMEMBERED.',
+    hero_text: 'A curated selection of the world’s finest luxury and sports cars — with full technical details and exterior and interior photography.',
+    hero_btn: 'Explore Collection',
+    col_title: 'The Collection',
+    col_sub: 'Click any car to see its photos and full specifications.',
+    all: 'All',
+    details: 'View details',
+    exterior: 'Exterior', interior: 'Interior',
+    s_engine: 'Engine', s_power: 'Power', s_torque: 'Torque',
+    s_accel: '0–100 km/h', s_top: 'Top speed', s_drive: 'Drivetrain', s_gear: 'Transmission',
+    hp: 'hp', nm: 'Nm', sec: 's', kmh: 'km/h',
+    short_power: 'Power', short_accel: '0–100', short_top: 'Top speed',
+    spec_note: 'Figures are approximate and refer to the model shown; they may vary by market and model year.',
+    about_title: 'About the showroom',
+    about_sub: 'This website is for display purposes only and is designed to showcase the cars.',
+    f1_t: 'Pure Engineering', f1_p: 'Every car is the result of decades of design, aerodynamics and performance experience.',
+    f2_t: 'Luxury & Sport', f2_p: 'From ultra-luxury limousines to record-breaking hypercars, in one collection.',
+    f3_t: 'A Growing Collection', f3_p: 'New cars are continuously added to the collection.',
+    footer: '© 2026 NOIR Showroom — Display website only.'
+  }
+};
+
+/* =====================================================================
+   3) لیست ماشین‌ها — برای اضافه کردن ماشین جدید، یک بلوک کپی کنید
+   3) CAR LIST — to add a new car, copy one block and edit it
+
+   ► عکس‌ها: مسیر عکس را در images.exterior و images.interior بگذارید.
+     پیشنهاد: پوشه‌ی images کنار همین فایل بسازید و عکس‌ها را (ترجیحاً
+     مشکی) با همین نام‌ها داخلش بگذارید. اگر عکسی پیدا نشد، یک کادر
+     جایگزین تیره نمایش داده می‌شود. لینک اینترنتی (https://...) هم قابل
+     استفاده است.
+   ► IMAGES: set the paths in images.exterior / images.interior. Put your
+     (preferably black) photos in an "images" folder next to this file.
+     If a photo is missing, a dark placeholder is shown. Full URLs work too.
+   ===================================================================== */
+const CARS = [
+  {
+    id: 'g-class', brand: 'Mercedes-Benz',
+    name: { fa: 'مرسدس بنز جی کلاس (G 63 AMG)', en: 'Mercedes-AMG G 63' },
+    tagline: { fa: 'اسطوره‌ی شاسی‌بلند', en: 'The off-road icon' },
+    desc: {
+      fa: 'ترکیب ظاهر ماندگار و جعبه‌ای جی کلاس با قدرت موتور V8 دوتوربو AMG؛ خودرویی که هم در شهر و هم در مسیرهای سخت بی‌رقیب است.',
+      en: 'The timeless boxy silhouette of the G-Class paired with a hand-built AMG twin-turbo V8 — equally commanding in the city and off the beaten track.'
+    },
+    images: {
+       exterior: 'images/g-class-exterior.jpg', 
+       interior: 'images/g-class-interior.jpg' },
+    specs: {
+      engine: { fa: 'V8 دوتوربو ۴.۰ لیتری', en: '4.0L twin-turbo V8' },
+      power: 577, torque: 850, accel: 4.5, top: 220,
+      drive: { fa: 'چهارچرخ محرک (4MATIC)', en: 'All-wheel drive (4MATIC)' },
+      gearbox: { fa: 'اتوماتیک ۹ سرعته', en: '9-speed automatic' }
+    }
+  },
+  {
+    id: 'challenger', brand: 'Dodge',
+    name: { fa: 'دوج چلنجر SRT هلکت', en: 'Dodge Challenger SRT Hellcat' },
+    tagline: { fa: 'ماسل‌کار آمریکایی', en: 'American muscle, unleashed' },
+    desc: {
+      fa: 'موتور V8 سوپرشارژ هِمی با بیش از ۷۰۰ اسب بخار و صدایی که فراموش نمی‌شود؛ نماد قدرت خام آمریکایی.',
+      en: 'A supercharged HEMI V8 with over 700 horsepower and a soundtrack you won’t forget — raw American power in its purest form.'
+    },
+    images: 
+    { exterior: 'images/challenger-exterior.jpg',
+     interior: 'images/challenger-interior.jpg' },
+    specs: {
+      engine: { fa: 'V8 سوپرشارژ ۶.۲ لیتری هِمی', en: '6.2L supercharged HEMI V8' },
+      power: 717, torque: 881, accel: 3.6, top: 320,
+      drive: { fa: 'دیفرانسیل عقب', en: 'Rear-wheel drive' },
+      gearbox: { fa: 'اتوماتیک ۸ سرعته', en: '8-speed automatic' }
+    }
+  },
+  {
+    id: 'i8', brand: 'BMW',
+    name: { fa: 'بی‌ام‌و i8', en: 'BMW i8' },
+    tagline: { fa: 'اسپرت هیبریدی آینده‌نگر', en: 'The hybrid sports car of the future' },
+    desc: {
+      fa: 'سوپراسپرت پلاگین‌هیبرید با درهای پروانه‌ای و بدنه‌ی سبک کربنی که کارایی و هیجان را کنار هم قرار می‌دهد.',
+      en: 'A plug-in hybrid sports car with butterfly doors and a carbon-fibre structure that blends efficiency with excitement.'
+    },
+    images:
+     { exterior: 'images/i8-exterior.jpg',
+      interior: 'images/i8-interior.jpg' },
+    specs: {
+      engine: { fa: '۳ سیلندر ۱.۵ لیتری توربو + موتور الکتریکی', en: '1.5L turbo 3-cyl + electric motor' },
+      power: 369, torque: 570, accel: 4.4, top: 250,
+      drive: { fa: 'چهارچرخ محرک هیبریدی (xDrive)', en: 'Hybrid all-wheel drive' },
+      gearbox: { fa: 'اتوماتیک ۶ سرعته', en: '6-speed automatic' }
+    }
+  },
+  {
+    id: 'm8', brand: 'BMW',
+    name: { fa: 'بی‌ام‌و M8 کامپتیشن', en: 'BMW M8 Competition' },
+    tagline: { fa: 'گرندتورر پرچم‌دار M', en: 'The flagship M grand tourer' },
+    desc: {
+      fa: 'کوپه‌ی لوکس و فوق‌سریع با موتور V8 دوتوربو و سیستم M xDrive؛ تلفیقی از آسایش و عملکرد پیست.',
+      en: 'A luxurious yet ferocious coupé with a twin-turbo V8 and M xDrive — comfort and track-bred performance in one.'
+    },
+    images:
+     { exterior: 'images/m8-exterior.jpg',
+      interior: 'images/m8-interior.jpg' },
+    specs: {
+      engine: { fa: 'V8 دوتوربو ۴.۴ لیتری', en: '4.4L twin-turbo V8' },
+      power: 617, torque: 750, accel: 3.2, top: 250,
+      drive: { fa: 'چهارچرخ محرک (M xDrive)', en: 'All-wheel drive (M xDrive)' },
+      gearbox: { fa: 'اتوماتیک ۸ سرعته M Steptronic', en: '8-speed M Steptronic' }
+    }
+  },
+  {
+    id: 'm5', brand: 'BMW',
+    name: { fa: 'بی‌ام‌و M5 کامپتیشن', en: 'BMW M5 Competition' },
+    tagline: { fa: 'سدان اسپرت افسانه‌ای', en: 'The legendary super-saloon' },
+    desc: {
+      fa: 'سدانی چهار‌در که با شتاب یک سوپراسپرت حرکت می‌کند؛ ترکیب کاربردی بودن روزمره و قدرت پیست.',
+      en: 'A four-door saloon that accelerates like a supercar — everyday usability fused with track-ready power.'
+    },
+    images:
+     { exterior: 'images/m5-exterior.jpg',
+      interior: 'images/m5-interior.jpg' },
+    specs: {
+      engine: { fa: 'V8 دوتوربو ۴.۴ لیتری', en: '4.4L twin-turbo V8' },
+      power: 617, torque: 750, accel: 3.3, top: 250,
+      drive: { fa: 'چهارچرخ محرک (M xDrive)', en: 'All-wheel drive (M xDrive)' },
+      gearbox: { fa: 'اتوماتیک ۸ سرعته M Steptronic', en: '8-speed M Steptronic' }
+    }
+  },
+  {
+    id: 'phantom', brand: 'Rolls-Royce',
+    name: { fa: 'رولز رویس فانتوم', en: 'Rolls-Royce Phantom' },
+    tagline: { fa: 'اوج تجمل و سکوت', en: 'The pinnacle of luxury and silence' },
+    desc: {
+      fa: 'پرچم‌دار رولز رویس با کابین بی‌صدا، چرم و چوب دست‌ساز و حرکتی که به آن «فرش جادویی» می‌گویند.',
+      en: 'The Rolls-Royce flagship with a whisper-quiet cabin, hand-finished leather and wood, and its famous “magic carpet ride”.'
+    },
+    images:
+     { exterior: 'images/phantom-exterior.jpg',
+      interior: 'images/phantom-interior.jpg' },
+    specs: {
+      engine: { fa: 'V12 دوتوربو ۶.۷۵ لیتری', en: '6.75L twin-turbo V12' },
+      power: 563, torque: 900, accel: 5.3, top: 250,
+      drive: { fa: 'دیفرانسیل عقب', en: 'Rear-wheel drive' },
+      gearbox: { fa: 'اتوماتیک ۸ سرعته', en: '8-speed automatic' }
+    }
+  },
+  {
+    id: 'mustang', brand: 'Ford',
+    name: { fa: 'فورد موستانگ GT', en: 'Ford Mustang GT' },
+    tagline: { fa: 'نماد ماسل‌کارهای آمریکا', en: 'The icon of American muscle' },
+    desc: {
+      fa: 'موستانگ با موتور V8 پنج‌لیتری و طراحی اسپرت، همان روحیه‌ی همیشگی ماسل‌کارها را به نسل امروز آورده است.',
+      en: 'The Mustang with its 5.0L V8 and sporty design carries the muscle-car spirit into the modern era.'
+    },
+    images:
+     { exterior: 'images/mustang-exterior.jpg',
+     interior: 'images/mustang-interior.jpg' },
+    specs: {
+      engine: { fa: 'V8 ۵.۰ لیتری کایوت', en: '5.0L Coyote V8' },
+      power: 480, torque: 567, accel: 4.3, top: 250,
+      drive: { fa: 'دیفرانسیل عقب', en: 'Rear-wheel drive' },
+      gearbox: { fa: 'اتوماتیک ۱۰ سرعته / دستی ۶ سرعته', en: '10-speed automatic / 6-speed manual' }
+    }
+  },
+  {
+    id: 'maybach', brand: 'Mercedes-Benz',
+    name: { fa: 'مرسدس مایباخ S 680', en: 'Mercedes-Maybach S 680' },
+    tagline: { fa: 'لوکس‌ترین کلاس S', en: 'The ultimate S-Class' },
+    desc: {
+      fa: 'لیموزین فوق‌لوکس با موتور V12 و صندلی‌های عقب آسوده؛ مرز تازه‌ای از رفاه و ظرافت.',
+      en: 'An ultra-luxury limousine with a V12 engine and first-class rear seating — a new benchmark in comfort and elegance.'
+    },
+    images:
+     { exterior: 'images/maybach-exterior.jpg',
+      interior: 'images/maybach-interior.jpg' },
+    specs: {
+      engine: { fa: 'V12 دوتوربو ۶.۰ لیتری', en: '6.0L twin-turbo V12' },
+      power: 612, torque: 900, accel: 4.5, top: 250,
+      drive: { fa: 'چهارچرخ محرک (4MATIC+)', en: 'All-wheel drive (4MATIC+)' },
+      gearbox: { fa: 'اتوماتیک ۹ سرعته', en: '9-speed automatic' }
+    }
+  },
+  {
+    id: 'c-class', brand: 'Mercedes-Benz',
+    /* توجه: مدل رسمی «C500» در لیست فعلی مرسدس وجود ندارد؛ نزدیک‌ترین مدل اسپرت (C 63 S AMG) گذاشته شده.
+       Note: there is no current official "C 500"; the closest sporty model (C 63 S AMG) is used. Edit freely. */
+    name: { fa: 'مرسدس بنز C-Class (C 63 S AMG)', en: 'Mercedes-AMG C 63 S' },
+    tagline: { fa: 'سدان کوچک با قلب AMG', en: 'Compact saloon with an AMG heart' },
+    desc: {
+      fa: 'سدان اسپرت و جمع‌وجور با موتور V8 دوتوربو؛ ترکیبی از ظرافت بنز و خشونت AMG.',
+      en: 'A compact, sporty saloon with a twin-turbo V8 — Mercedes elegance with AMG aggression.'
+    },
+    images:
+     { exterior: 'images/c-class-exterior.jpg',
+      interior: 'images/c-class-interior.jpg' },
+    specs: {
+      engine: { fa: 'V8 دوتوربو ۴.۰ لیتری', en: '4.0L twin-turbo V8' },
+      power: 503, torque: 700, accel: 3.9, top: 250,
+      drive: { fa: 'دیفرانسیل عقب', en: 'Rear-wheel drive' },
+      gearbox: { fa: 'اتوماتیک ۹ سرعته AMG', en: '9-speed AMG Speedshift' }
+    }
+  },
+  {
+    id: 'chiron', brand: 'Bugatti',
+    name: { fa: 'بوگاتی شیرون', en: 'Bugatti Chiron' },
+    tagline: { fa: 'قله‌ی هایپرکارها', en: 'The summit of hypercars' },
+    desc: {
+      fa: 'موتور W16 چهارتوربو با ۱۴۷۹ اسب بخار؛ یکی از سریع‌ترین و پیشرفته‌ترین خودروهای تولیدی جهان.',
+      en: 'A quad-turbo W16 with 1,479 hp — one of the fastest and most advanced production cars ever built.'
+    },
+    images:
+     { exterior: 'images/chiron-exterior.jpg',
+      interior: 'images/chiron-interior.jpg' },
+    specs: {
+      engine: { fa: 'W16 چهارتوربو ۸.۰ لیتری', en: '8.0L quad-turbo W16' },
+      power: 1479, torque: 1600, accel: 2.4, top: 420,
+      drive: { fa: 'چهارچرخ محرک', en: 'All-wheel drive' },
+      gearbox: { fa: 'دوکلاچه ۷ سرعته', en: '7-speed dual-clutch' }
+    }
+  },
+  {
+    id: 'huayra', brand: 'Pagani',
+    name: { fa: 'پاگانی هوایرا', en: 'Pagani Huayra' },
+    tagline: { fa: 'هنر ایتالیایی روی چهار چرخ', en: 'Italian art on four wheels' },
+    desc: {
+      fa: 'اثری دست‌ساز از کربن و تیتانیوم با موتور V12 دوتوربو ساخت AMG؛ ترکیبی از مهندسی و هنر.',
+      en: 'A hand-built masterpiece of carbon fibre and titanium with an AMG-sourced twin-turbo V12 — engineering as art.'
+    },
+    images:
+     { exterior: 'images/huayra-exterior.jpg',
+      interior: 'images/huayra-interior.jpg' },
+    specs: {
+      engine: { fa: 'V12 دوتوربو ۶.۰ لیتری', en: '6.0L twin-turbo V12' },
+      power: 710, torque: 1000, accel: 3.3, top: 370,
+      drive: { fa: 'دیفرانسیل عقب', en: 'Rear-wheel drive' },
+      gearbox: { fa: 'ترتیبی ۷ سرعته', en: '7-speed sequential' }
+    }
+  },
+  {
+    id: 'sf90', brand: 'Ferrari',
+    name: { fa: 'فراری SF90 استرادله', en: 'Ferrari SF90 Stradale' },
+    tagline: { fa: 'پرچم‌دار هیبریدی فراری', en: 'Ferrari’s hybrid flagship' },
+    desc: {
+      fa: 'اولین فراری پلاگین‌هیبرید تولیدی با سه موتور الکتریکی و V8 دوتوربو؛ نزدیک به ۱۰۰۰ اسب بخار قدرت.',
+      en: 'Ferrari’s first series-production plug-in hybrid — a twin-turbo V8 and three electric motors for nearly 1,000 hp.'
+    },
+    images:
+     { exterior: 'images/sf90-exterior.jpg',
+      interior: 'images/sf90-interior.jpg' },
+    specs: {
+      engine: { fa: 'V8 دوتوربو ۴.۰ لیتری + ۳ موتور الکتریکی', en: '4.0L twin-turbo V8 + 3 electric motors' },
+      power: 986, torque: 800, accel: 2.5, top: 340,
+      drive: { fa: 'چهارچرخ محرک', en: 'All-wheel drive' },
+      gearbox: { fa: 'دوکلاچه ۸ سرعته', en: '8-speed dual-clutch' }
+    }
+  },
+  {
+    id: '911-turbo-s', brand: 'Porsche',
+    name: { fa: 'پورشه 911 توربو S', en: 'Porsche 911 Turbo S' },
+    tagline: { fa: 'سوپراسپرت روزمره', en: 'The everyday supercar' },
+    desc: {
+      fa: 'موتور بوکسر دوتوربو با شتاب خیره‌کننده و رفتار دقیق؛ نمادی از مهندسی آلمانی.',
+      en: 'A twin-turbo flat-six with staggering acceleration and razor-sharp handling — German engineering at its finest.'
+    },
+    images:
+     { exterior: 'images/911-exterior.jpg',
+      interior: 'images/911-interior.jpg' },
+    specs: {
+      engine: { fa: 'بوکسر ۶ سیلندر دوتوربو ۳.۷ لیتری', en: '3.7L twin-turbo flat-six' },
+      power: 631, torque: 800, accel: 2.7, top: 330,
+      drive: { fa: 'چهارچرخ محرک', en: 'All-wheel drive' },
+      gearbox: { fa: 'دوکلاچه ۸ سرعته PDK', en: '8-speed PDK dual-clutch' }
+    }
+  }
+  /* ← برای اضافه کردن ماشین جدید، یک بلوک بالا را کپی کنید و اینجا (با ویرگول) بچسبانید.
+       To add a car, copy a block above and paste it here (don't forget the comma). */
+];
+
+/* =====================================================================
+   4) منطق سایت — معمولاً نیازی به ویرایش ندارد
+   4) SITE LOGIC — normally no need to edit
+   ===================================================================== */
+let lang = 'fa';
+try { lang = localStorage.getItem('lang') || 'fa'; } catch (e) {}
+let activeBrand = 'all';
+let currentCar = null;
+let currentView = 'exterior';
+
+const $ = (s) => document.querySelector(s);
+const t = (key) => I18N[lang][key] || key;
+const pick = (obj) => (obj && typeof obj === 'object') ? obj[lang] : obj;
+
+/* کادر جایگزین وقتی عکس موجود نیست / dark placeholder when a photo is missing */
+function ph(label) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1633"/><stop offset=".6" stop-color="#05050a"/><stop offset="1" stop-color="#5a0a1c"/>
+    </linearGradient></defs>
+    <rect width="800" height="500" fill="url(#g)"/>
+    <text x="400" y="250" fill="#ffffff" fill-opacity=".55" font-family="Arial" font-size="26" text-anchor="middle">${label}</text>
+  </svg>`;
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+function imgTag(src, label, cls) {
+  const safe = String(label).replace(/["'<>&]/g, '');
+  return `<img class="${cls || ''}" src="${src}" alt="${safe}" loading="lazy" onerror="this.onerror=null;this.src=ph('${safe}')">`;
+}
+
+function applyLang() {
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+  document.title = lang === 'fa' ? 'نمایشگاه NOIR' : 'NOIR Showroom';
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+  $('#langBtn').textContent = lang === 'fa' ? 'EN' : 'فارسی';
+  renderFilters();
+  renderGrid();
+  if (currentCar) openCar(currentCar.id, currentView);
+}
+
+function renderFilters() {
+  const brands = ['all', ...new Set(CARS.map(c => c.brand))];
+  $('#filters').innerHTML = brands.map(b =>
+    `<button class="chip ${b === activeBrand ? 'active' : ''}" data-brand="${b}">${b === 'all' ? t('all') : b}</button>`
+  ).join('');
+  document.querySelectorAll('.chip').forEach(ch => ch.onclick = () => {
+    activeBrand = ch.dataset.brand; renderFilters(); renderGrid();
+  });
+}
+
+function renderGrid() {
+  const list = CARS.filter(c => activeBrand === 'all' || c.brand === activeBrand);
+  $('#grid').innerHTML = list.map(c => {
+    const name = pick(c.name);
+    return `
+    <article class="card" data-id="${c.id}">
+      <div class="card-img">
+        <span class="badge">${c.brand}</span>
+        ${imgTag(c.images.exterior, name)}
+        ${imgTag(c.images.interior, name, 'interior')}
+      </div>
+      <div class="card-body">
+        <h3>${name}</h3>
+        <div class="tag">${pick(c.tagline)}</div>
+        <div class="mini">
+          <div><b>${c.specs.power}</b><small>${t('hp')}</small></div>
+          <div><b>${c.specs.accel}</b><small>${t('short_accel')} (${t('sec')})</small></div>
+          <div><b>${c.specs.top}</b><small>${t('kmh')}</small></div>
+        </div>
+        <div class="more">${t('details')} ${lang === 'fa' ? '←' : '→'}</div>
+      </div>
+    </article>`;
+  }).join('');
+  document.querySelectorAll('.card').forEach(card => card.onclick = () => openCar(card.dataset.id));
+}
+
+function openCar(id, view) {
+  const c = CARS.find(x => x.id === id);
+  if (!c) return;
+  currentCar = c;
+  currentView = view || 'exterior';
+  const name = pick(c.name);
+  $('#mName').textContent = name;
+  $('#mTag').textContent = pick(c.tagline);
+  $('#mDesc').textContent = pick(c.desc);
+  const s = c.specs;
+  const rows = [
+    ['s_engine', pick(s.engine)],
+    ['s_power',  `${s.power} ${t('hp')}`],
+    ['s_torque', `${s.torque} ${t('nm')}`],
+    ['s_accel',  `${s.accel} ${t('sec')}`],
+    ['s_top',    `${s.top} ${t('kmh')}`],
+    ['s_drive',  pick(s.drive)],
+    ['s_gear',   pick(s.gearbox)]
+  ];
+  $('#mSpecs').innerHTML = rows.map(r => `<tr><td>${t(r[0])}</td><td>${r[1]}</td></tr>`).join('');
+  setView(currentView);
+  $('#modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function setView(v) {
+  currentView = v;
+  const c = currentCar;
+  const img = $('#mainImg');
+  img.onerror = () => { img.onerror = null; img.src = ph(pick(c.name)); };
+  img.src = c.images[v];
+  img.alt = pick(c.name);
+  $('#tabExt').classList.toggle('active', v === 'exterior');
+  $('#tabInt').classList.toggle('active', v === 'interior');
+}
+
+function closeModal() {
+  $('#modal').classList.remove('open');
+  document.body.style.overflow = '';
+  currentCar = null;
+}
+
+$('#tabExt').onclick = () => setView('exterior');
+$('#tabInt').onclick = () => setView('interior');
+$('#closeBtn').onclick = closeModal;
+$('#modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+$('#langBtn').onclick = () => {
+  lang = lang === 'fa' ? 'en' : 'fa';
+  try { localStorage.setItem('lang', lang); } catch (e) {}
+  applyLang();
+};
+
+applyLang();
+</script>
+</body>
+</html>
